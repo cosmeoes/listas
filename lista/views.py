@@ -9,7 +9,7 @@ from .models import Lista, ListaItem
 # Create your views here.
 def index(request):
 
-    return render(request, 'lista/index.html')
+    return render(request, 'lista/index.html', {'title': "Bienvenido"})
 
 
 @login_required
