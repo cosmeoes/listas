@@ -1,39 +1,26 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Editar {{lista.nombre}}</title>
+{% extends "lista/base.html" %}
+{% block content %}
+<h1>Agragar items</h1>
 
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-      {% load static %}
-      <link rel="stylesheet" href="{% static 'lista/css/styles.css' %}">
-  </head>
-  <body>
-    <div class="container text-center">
-
-      <h1>Agragar items</h1>
-
-      <form class="forma" action="{% url 'add_items' lista_id=lista.id%}" method="post">
-        {% csrf_token %}
-        <div class="form-inputs text-center">
-          {{ form }}
-        </div>
-        <button type="submit" class="btn btn-success" name="button">Agregar</button>
-        <a href="{% url 'mis_listas' %}" class="btn btn-primary">Regresar</a>
-      </form>
-      <div class="items-editar">
-        <ul class="">
-        {% for item in items %}
-            <li>
-              <span class="{{ item.crusado|yesno:'crossed, ' }}">{{item.nombre}}</span>
-              {# <span>{{item.cantidad}}</span> #}
-              <a href="{% url 'toogle_cross' item_id=item.id %}" class="btn btn-warning"><i class="fas fa-slash"></i></a>
-              <a href="{% url 'delete_item' item_id=item.id %}" type="button" name="button" class='btn btn-danger'><i class="fas fa-trash-alt"></i></a>
-            </li>
-        {% endfor %}
-      </ul>
-      </div>
-    </div>
-  </body>
-</html>
+<form class="forma" action="{% url 'add_items' lista_id=lista.id%}" method="post">
+  {% csrf_token %}
+  <div class="form-inputs text-center">
+    {{ form }}
+    <br>
+  </div>
+  <button type="submit" class="btn btn-success" name="button">Agregar</button>
+  <a href="{% url 'mis_listas' %}" class="btn btn-primary">Regresar</a>
+</form>
+<div class="items-editar">
+  <ul class="">
+    {% for item in items %}
+    <li>
+      <span class="{{ item.crusado|yesno:'crossed, ' }}">{{item.nombre}}</span>
+      {# <span>{{item.cantidad}}</span> #}
+      <a href="{% url 'toogle_cross' item_id=item.id %}" class="btn btn-warning"><i class="fas fa-slash"></i></a>
+      <a href="{% url 'delete_item' item_id=item.id %}" type="button" name="button" class='btn btn-danger'><i class="fas fa-trash-alt"></i></a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

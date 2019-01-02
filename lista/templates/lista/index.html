@@ -1,0 +1,19 @@
+{% extends "lista/base.html" %}
+{% block content %}
+<h1>Listas</h1>
+<h2>Bienvenido</h2>
+<p>¿Qué puedo hacer en esta pagina?</p>
+<section class="inicio">
+  {% load static %}
+  <p class="card">Crea las listas que necesites</p>
+  <img src="{% static "lista/img/crearlista.png"%}" alt="">
+  <p class="card">Agrega items y cruzalos una vez que los completes</p>
+  <img src="{% static "lista/img/agregar.png"%}" alt="">
+  <p class="card"> Maneja tus listas desde el mismo lugar</p>
+  <img src="{% static "lista/img/verListas.png"%}" alt="">
+</section>
+<section class='registrate'>
+  <h2>Inicia ahora mismo, <a href="{% url 'signup' %}">registrate<a></h2>
+
+</section>
+{% endblock %}

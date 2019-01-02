@@ -1,0 +1,18 @@
+{% extends "lista/base.html" %}
+{% block content %}
+
+<div class="jumbotron vertical-center center-vertical col-lg-6 mx-auto">
+  <div class="card ">
+    <h2>Registrarse</h2>
+<form class="forma" method="post">
+  {% csrf_token %}
+  <div class="form-inputs">
+    {{ form}}
+  </div>
+  <button type="submit" class="btn btn-primary" name="button" >Registrarse</button>
+  <a href="{% url "index" %}" type="submit" class="btn btn-danger" name="button" >Cancelar</a>
+  <p>¿Ya tienes cuenta? <a href="{% url "login" %}">inicia sesión</a></p>
+</form>
+</div>
+</div>
+{% endblock %}

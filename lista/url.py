@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete_lista/<int:lista_id>', views.delete_lista, name='delete_lista'),
     path('delete_item/<int:item_id>', views.delete_item, name='delete_item'),
     path('toogle_cross/<int:item_id>', views.toogle_cross, name='toogle_cross'),
+    path('signup/', views.signup, name='signup'),
 ]

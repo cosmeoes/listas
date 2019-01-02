@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html>
+{% extends "lista/base.html" %}
+{% block content %}
+<div class="jumbotron vertical-center center-vertical col-lg-6 mx-auto">
+  <div class="card ">
 
-<head>
-    <title>Login</title>
-</head>
+<h2>Login</h2>
 
-<body>
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
-</body>
+<form class="forma" method="post">
+  {% csrf_token %}
+  <div class="form-inputs">
+    {{ form }}
+    <br>
+  </div>
+  <button type="submit" class="btn btn-primary" name="button">Login</button>
+  <a href="{% url "index" %}" class="btn btn-danger" name="button" >Cancelar</a>
+  <p>¿No tienes cuenta? <a href="{% url "signup" %}">Registrate</a></p>
+</form>
 
-</html>
+</div>
+</div>
+{% endblock %}

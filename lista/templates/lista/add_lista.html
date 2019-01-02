@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Crear lista</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'lista/css/styles.css' %}">
-  </head>
-  <body>
-    <h1 class="text-center">Crear lista</h1>
-    <form class="forma text-center" action="{% url 'add_lista' %}" method="post">
-      {% csrf_token %}
-      <div class="form-inputs">
-        {{ form }}
-      </div>
-      <button type="submit" class="btn btn-primary" name="button">Guardar</button>
-      <a href="{% url 'mis_listas' %}" class="btn btn-danger" >Cancelar</a>
-    </form>
-  </body>
-</html>
+{% extends "lista/base.html" %}
+{% block content %}
+<h1 class="text-center">Crear lista</h1>
+<form class="forma text-center" action="{% url 'add_lista' %}" method="post">
+  {% csrf_token %}
+  <div class="form-inputs">
+    {{ form }}
+    <br>
+  </div>
+  <button type="submit" class="btn btn-primary" name="button">Guardar</button>
+  <a href="{% url 'mis_listas' %}" class="btn btn-danger" >Cancelar</a>
+</form>
+{% endblock %}
