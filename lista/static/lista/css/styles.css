@@ -1,0 +1,31 @@
+.listas {
+  text-align: center;
+  width: 40%;
+  margin: 0 auto;
+  font-size: 3rem;
+}
+.listas .items {
+  font-size: 1.2rem;
+}
+
+.forma .form-inputs > input,  .forma .form-inputs > select{
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  background: white;
+  border: solid 1px #c2c2c2;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+.items-editar {
+  margin-top: 10px;
+  font-size: 1.5rem;
+}
+
+.items-editar > ul > li {
+  margin-bottom: 5px;
+}
+.crossed {
+  text-decoration: line-through;
+}
