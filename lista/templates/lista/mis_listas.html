@@ -6,7 +6,7 @@
     </p>
     {% if listas %}
     {% for lista in listas %}
-    <div class="float-left col-lg-6">
+    <div class="{% if forloop.counter < listas|length or forloop.counter|divisibleby:2 %} float-left col-lg-6 {% else %} ultima col-lg-8 {% endif %}" >
     <div class="jumbotron listas vertical-center center-vertical">
     <div class="card  text-center">
       <div class="card-body">
