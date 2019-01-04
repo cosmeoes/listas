@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Cosme Escobedo</title>
+
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  </head>
+  {% load static %}
+  <body>
+    <div class="container text-center">
+      <br/>
+      <h1>Aplicaciones</h1>
+      {% for app in apps %}
+        <a href="{{ app.url }}" class="mx-auto card col-lg-8">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ app.nombre }}
+            </h5>
+            <img class="img-fluid img-app" src="{% static app.image %}" alt="">
+            <br/>
+            {{ app.descripcion }}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </body>
+  <style>
+    .container a:link,.container a:visited {
+      text-decoration: none;
+      color: black;
+
+      transition: all 0.2s ease-in-out;
+    }
+    .container a:hover {
+      transform: scale(1.1);
+    }
+    .img-app {
+      -webkit-box-shadow: 10px 10px 22px -11px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 22px -11px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 22px -11px rgba(0,0,0,0.75);
+    }
+  </style>
+</html>
