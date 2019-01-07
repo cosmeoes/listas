@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
+    path('portalAlumnos/', include('portal.url')),
     path('lista/', include('lista.url'), name='listaapp'),
     path('lista/', include('lista.url')),
     path('accounts/', include('django.contrib.auth.urls')),
