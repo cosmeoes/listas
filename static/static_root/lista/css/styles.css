@@ -65,3 +65,8 @@ section.registrate {
   text-align: center;
   color: #dc3545;
 }
+
+.ultima {
+  display: inline-block;
+  margin: 0 auto;
+}
