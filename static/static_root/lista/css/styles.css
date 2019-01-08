@@ -70,3 +70,11 @@ section.registrate {
   display: inline-block;
   margin: 0 auto;
 }
+
+.items:empty:before {
+   content: 'Esta lista esta vacia';
+}
+.listas:empty:before {
+  font-size: 1.5rem;
+  content: 'No tienes ninguna lista'
+}
