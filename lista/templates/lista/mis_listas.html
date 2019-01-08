@@ -4,39 +4,68 @@
     <p class="text-center">
       <a href="{% url 'add_lista' %}" class='btn btn-primary'><i class="fas fa-plus"></i></a>
     </p>
-    {% if listas %}
-    {% for lista in listas %}
-    <div class="{% if forloop.counter < listas|length or forloop.counter|divisibleby:2 %} float-left col-lg-6 {% else %} ultima col-lg-8 {% endif %}" >
-    <div class="jumbotron listas vertical-center center-vertical">
-    <div class="card  text-center">
-      <div class="card-body">
-        <div class="card-title">
-          {{lista.nombre}}
-          <a class="btn btn-info" data-toggle="collapse" href="#itemsLista{{lista.id}}" role="button" aria-expanded="false" aria-controls="itemsLista{{lista.id}}"><i class="far fa-eye"></i></a>
+    <div class="listas">{% if listas %}
+      {% for lista in listas %}
+      <div id="lista{{lista.id}}" class="ultima col-lg-8" >
+        <div class="jumbotron listas vertical-center center-vertical">
+          <div class="card  text-center">
+            <div class="card-body">
+              <div class="card-title">
+                {{lista.nombre}}
+                <a class="btn btn-info" data-toggle="collapse" href="#itemsLista{{lista.id}}" role="button" aria-expanded="false" aria-controls="itemsLista{{lista.id}}"><i class="far fa-eye"></i></a>
+              </div>
+              <div class="collapse items" id="itemsLista{{lista.id}}">{% if lista.listaitem_set.all %}
+                <div class="items">
+                  {% for item in lista.listaitem_set.all  %}
+                  <div id="item{{item.id}}">
+                    <div class="{{ item.crusado|yesno:'crossed, ' }}">
+                      {{item.nombre}}
+                    </div>
+                    <button onclick="marcarHecho({{item.id}})" type="button" class="btn btn-warning" name="button">{{ item.crusado|yesno:'No hecho,Hecho' }}</button>
+                    <button onclick="borrarItem({{item.id}})" type="button" class="btn btn-danger" name="button">Borrar</button>
+                  </div>
+                  {% endfor %}
+                </div>
+                {% endif %}</div>
+                <button data-lista-id="{{lista.id}}" class='btn btn-success' data-toggle="modal" data-target="#modalItem"><i class="fas fa-plus"></i></button>
+                <a class='btn btn-primary' href="{% url 'edit_lista'  lista_id=lista.id%}"><i class="fas fa-edit"></i></a>
+                <button class='btn btn-danger' onclick="borrarLista({{lista.id}})"><i class="fas fa-trash-alt"></i></button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="collapse items" id="itemsLista{{lista.id}}">
-          {% if lista.listaitem_set.all %}
-          <ul>
-            {% for item in lista.listaitem_set.all  %}
-            <li class="{{ item.crusado|yesno:'crossed, ' }}">{{item.nombre}}</li>
-            {% endfor %}
-          </ul>
-          {% else %}
-          <p>Esta lista esta vacia</p>
-          {% endif %}
+        {% endfor %}
+        {% endif %}</div>
+    <div class="modal fade" id="modalItem" tabindex="-1" role="dialog" aria-labelledby="modalItemLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalItemLabel">Agrega un item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="inputItem">Texto</label>
+            <br>
+            <input id="inputItem" type="text" name="" value="">
+            <p class="text-danger"></p>
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+          </div>
         </div>
-        <a class='btn btn-success' href="{% url 'add_items'  lista_id=lista.id%}"><i class="fas fa-plus"></i></a>
-        <a class='btn btn-primary' href="{% url 'edit_lista'  lista_id=lista.id%}"><i class="fas fa-edit"></i></a>
-        <a class='btn btn-danger' href="{% url 'delete_lista'  lista_id=lista.id%}"><i class="fas fa-trash-alt"></i></a>
       </div>
     </div>
-  </div>
-  </div>
-    {% endfor %}
-    {% else %}
-    <div class="">
-      <p>No tienes ninguna lista</p>
-    </div>
-    {% endif %}
-    </div>
+    {% csrf_token %}
+{% endblock %}
+
+{% load static %}
+{% block js %}
+<script>
+  var CSRF_TOKEN = '{{ csrf_token }}';
+</script>
+<script src="{% static 'lista/js/script.js'%}" charset="utf-8"></script>
 {% endblock %}
