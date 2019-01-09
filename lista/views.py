@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from .forms import InsertItemForm, InsertLista
+from django.http import HttpResponse
+import json
 
 from .models import Lista, ListaItem
 
@@ -30,25 +32,28 @@ def add_lista(request):
         form = InsertLista(request.POST)
         if form.is_valid():
             lista = Lista.objects.create(nombre=form.cleaned_data['nombre'], status=form.cleaned_data['status'], user=request.user)
-            return redirect(add_items, lista_id=lista.id)
+            return redirect(mis_listas)
     else:
         form = InsertLista()
 
     return render(request, 'lista/add_lista.html', {'form': form, "title": "Agregar lista"})
 
 @login_required
-def add_items(request, lista_id):
+def add_item(request, lista_id):
     lista = get_object_or_404(Lista, pk=lista_id)
+    datos_item = {}
     if request.method == 'POST':
         form = InsertItemForm(request.POST)
         if form.is_valid():
-            lista.listaitem_set.create(nombre=form.cleaned_data['nombre'])
-            form = InsertItemForm()
-    else:
-        form = InsertItemForm()
+            item = lista.listaitem_set.create(nombre=form.cleaned_data['nombre'])
 
-    items = lista.listaitem_set.all()
-    return render(request, 'lista/add_items.html', {'lista': lista, 'items': items, 'form': form, "title": "Agregar items"})
+            datos_item['id'] = item.id
+            datos_item['nombre'] = item.nombre
+            datos_item['crusado'] = item.crusado
+        else:
+            datos_item['errores'] = list(form.errors['nombre'])
+
+    return HttpResponse(json.dumps(datos_item), content_type="application/json")
 
 @login_required
 def edit_lista(request, lista_id):
@@ -70,21 +75,21 @@ def edit_lista(request, lista_id):
 def delete_lista(request, lista_id):
     lista = get_object_or_404(Lista, pk=lista_id)
     lista.delete()
-    return redirect(mis_listas)
+    return HttpResponse("done")
 
 @login_required
 def delete_item(request, item_id):
     item = get_object_or_404(ListaItem, pk=item_id)
     lista = item.lista
     item.delete()
-    return redirect(add_items, lista_id=lista.id)
+    return HttpResponse('done')
 
 @login_required
 def toogle_cross(request, item_id):
     item = get_object_or_404(ListaItem, pk=item_id)
     item.crusado = not item.crusado
     item.save()
-    return redirect(add_items, lista_id=item.lista.id)
+    return HttpResponse("done")
 
 
 def signup(request):
