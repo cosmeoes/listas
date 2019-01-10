@@ -1,0 +1,11 @@
+<h1>{{title}}</h1>
+{% for st in streams %}
+<div class="">
+  <ul>
+    <li>Quality: {{ st.resolution }}</li>
+    <li>Size: {{ st.filesize }}</li>
+    <li>Type: {{ st.mime }}</li>
+    <a href="{% url 'youtube:download' mime=st.mimed url=st.url %}">Download</a>
+  </ul>
+</div>
+{% endfor %}
