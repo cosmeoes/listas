@@ -65,3 +65,16 @@ section.registrate {
   text-align: center;
   color: #dc3545;
 }
+
+.ultima {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.items:empty:before {
+   content: 'Esta lista esta vacia';
+}
+.listas:empty:before {
+  font-size: 1.5rem;
+  content: 'No tienes ninguna lista'
+}
